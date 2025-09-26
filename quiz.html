@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz: Qual área combina mais com você?</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: auto;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    form {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    p {
+      font-weight: bold;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    #msg {
+      text-align: center;
+      margin-top: 15px;
+      font-weight: bold;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <h1>Quiz: Qual área combina mais com você?</h1>
+  <form id="quizForm">
+
+    <!-- Pergunta 1 -->
+    <p>1. Em um trabalho em grupo, o que você mais gosta de fazer?</p>
+    <label><input type="radio" name="q1" value="Finanças" required> a) Cuidar do dinheiro e dos cálculos</label>
+    <label><input type="radio" name="q1" value="RH"> b) Organizar as pessoas e resolver conflitos</label>
+    <label><input type="radio" name="q1" value="Marketing"> c) Criar ideias e divulgar o projeto</label>
+    <label><input type="radio" name="q1" value="Produção"> d) Colocar a mão na massa e produzir</label>
+    <label><input type="radio" name="q1" value="Atendimento"> e) Ajudar e ouvir os colegas</label>
+
+    <!-- Pergunta 2 -->
+    <p>2. Se você pudesse escolher uma atividade para fazer, qual seria?</p>
+    <label><input type="radio" name="q2" value="Finanças" required> a) Calcular e planejar orçamentos</label>
+    <label><input type="radio" name="q2" value="RH"> b) Ajudar alguém a se sentir bem no grupo</label>
+    <label><input type="radio" name="q2" value="Marketing"> c) Fazer uma campanha criativa</label>
+    <label><input type="radio" name="q2" value="Produção"> d) Construir algo prático</label>
+    <label><input type="radio" name="q2" value="Atendimento"> e) Conversar e atender pessoas</label>
+
+    <!-- Pergunta 3 -->
+    <p>3. Qual dessas frases combina mais com você?</p>
+    <label><input type="radio" name="q3" value="Finanças" required> a) Gosto de organizar o dinheiro</label>
+    <label><input type="radio" name="q3" value="RH"> b) Gosto de cuidar das pessoas</label>
+    <label><input type="radio" name="q3" value="Marketing"> c) Gosto de ser criativo</label>
+    <label><input type="radio" name="q3" value="Produção"> d) Gosto de executar tarefas práticas</label>
+    <label><input type="radio" name="q3" value="Atendimento"> e) Gosto de conversar e ajudar</label>
+
+    <!-- Pergunta 4 -->
+    <p>4. Se tivesse que escolher um papel em uma empresa, qual seria?</p>
+    <label><input type="radio" name="q4" value="Finanças" required> a) Cuidar das contas</label>
+    <label><input type="radio" name="q4" value="RH"> b) Ajudar os colegas</label>
+    <label><input type="radio" name="q4" value="Marketing"> c) Criar campanhas</label>
+    <label><input type="radio" name="q4" value="Produção"> d) Produzir os produtos</label>
+    <label><input type="radio" name="q4" value="Atendimento"> e) Atender os clientes</label>
+
+    <!-- Pergunta 5 -->
+    <p>5. Qual dessas matérias você mais gosta?</p>
+    <label><input type="radio" name="q5" value="Finanças" required> a) Matemática</label>
+    <label><input type="radio" name="q5" value="RH"> b) Sociologia</label>
+    <label><input type="radio" name="q5" value="Marketing"> c) Artes</label>
+    <label><input type="radio" name="q5" value="Produção"> d) Física</label>
+    <label><input type="radio" name="q5" value="Atendimento"> e) Português</label>
+
+    <button type="submit">Enviar</button>
+  </form>
+
+  <p id="msg"></p>
+
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbz1ETCC4juY-FG0IKab5ARre0r4OTdSPjeA78in6GYMXfQ1vbR-eU6-As5AgB7EXCSY6A/exec";     const form = document.getElementById("quizForm");
+    const msg = document.getElementById("msg");
+
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+
+      const data = {
+        q1: form.q1.value,
+        q2: form.q2.value,
+        q3: form.q3.value,
+        q4: form.q4.value,
+        q5: form.q5.value
+      };
+
+      fetch(scriptURL, {
+        method: "POST",
+        body: JSON.stringify(data),
+      })
+      .then(() => {
+        msg.textContent = "Resposta enviada com sucesso!";
+        msg.style.color = "green";
+        form.reset();
+      })
+      .catch(err => {
+        msg.textContent = "Erro ao enviar, tente novamente.";
+        msg.style.color = "red";
+        console.error(err);
+      });
+    });
+  </script>
+</body>
+</html>
